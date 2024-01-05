@@ -1,5 +1,7 @@
 # SensESP
 
+## Forked to work on a specific issue withArduinoJSON
+
 ## Note About the Repository Branches
 
 As part of the Version 2.0.0 release, version 1 content has been moved to the [v1](https://github.com/SignalK/SensESP/tree/v1) branch.
