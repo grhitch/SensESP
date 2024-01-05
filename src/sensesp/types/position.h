@@ -46,7 +46,7 @@ struct ENUVector {
  * @param src The JSON document containing the position data
  * @param dst The address to a Position struct to write the data to
  */
-void convertFromJson(JsonVariantConst src, Position &dst) {
+inline void convertFromJson(JsonVariantConst src, Position &dst) {
   dst.longitude = src["longitude"].as<double>();
   dst.latitude = src["latitude"].as<double>();
 
@@ -66,7 +66,7 @@ void convertFromJson(JsonVariantConst src, Position &dst) {
  * @return false if the given JSON doesn't contain "latitude" or "longitude"
  * keys
  */
-bool canConvertFromJson(JsonVariantConst src, const Position &) {
+inline bool canConvertFromJson(JsonVariantConst src, const Position &) {
   return src.containsKey("latitude") && src.containsKey("longitude");
 }
 
