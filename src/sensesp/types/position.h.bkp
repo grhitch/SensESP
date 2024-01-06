@@ -1,8 +1,6 @@
 #ifndef SENSESP_TYPES_POSITION_H_
 #define SENSESP_TYPES_POSITION_H_
 
-#include <ArduinoJson.h>
-
 #include <limits>
 
 namespace sensesp {
@@ -48,10 +46,15 @@ struct ENUVector {
  * @param src The JSON document containing the position data
  * @param dst The address to a Position struct to write the data to
  */
-void convertFromJson(JsonVariantConst src, Position& dst);
-// void convertFromJson(JsonVariantConst src, const Position &dst);
+inline void convertFromJson(JsonVariantConst src, Position &dst) {
+  dst.longitude = src["longitude"].as<double>();
+  dst.latitude = src["latitude"].as<double>();
 
-// void convertFromJson(JsonVariantConst src);
+  if (src.containsKey("altitude")) {
+    dst.altitude = src["altitude"].as<float>();
+  }
+}
+
 /**
  * @brief Tells ArduinoJson whether the given JSON is a Position or not
  *
@@ -63,7 +66,9 @@ void convertFromJson(JsonVariantConst src, Position& dst);
  * @return false if the given JSON doesn't contain "latitude" or "longitude"
  * keys
  */
-bool canConvertFromJson(JsonVariantConst src, Position&);
+inline bool canConvertFromJson(JsonVariantConst src, const Position &) {
+  return src.containsKey("latitude") && src.containsKey("longitude");
+}
 
 }  // namespace sensesp
 
